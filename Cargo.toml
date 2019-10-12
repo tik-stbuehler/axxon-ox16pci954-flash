@@ -1,0 +1,12 @@
+[package]
+name = "axxon-ox16pci954-flash"
+version = "0.1.0"
+authors = ["Stefan Bühler <stefan.buehler@tik.uni-stuttgart.de>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.33.0"
+env_logger = "0.6.2"
+failure = "0.1.6"
+libc = "0.2.62"
+log = "0.4.8"
