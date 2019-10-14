@@ -9,6 +9,28 @@ Coded for the following PCIe devices:
 They identify as a "PCI Express-to-PCI Bridge" ("PEX 8112") and two or four instances of a
 "OX16PCI954" PCI device (each providing four UART interfaces).
 
+## Why
+
+On some cards not all "OX16PCI954" are properly flashed, which might
+result in output like this:
+
+```
+$ lspci
+65:00.0 PCI bridge: PLX Technology, Inc. PEX8112 x1 Lane PCI Express-to-PCI Bridge (rev aa)
+66:00.0 Serial controller: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 0 (Uart)
+66:00.1 Bridge: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 0 (Disabled)
+66:01.0 Serial controller: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 0 (Uart)
+66:01.1 Bridge: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 1 (8bit bus)
+66:02.0 Serial controller: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 0 (Uart)
+66:02.1 Bridge: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 1 (8bit bus)
+66:03.0 Serial controller: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 0 (Uart)
+66:03.1 Bridge: Oxford Semiconductor Ltd OX16PCI954 (Quad 16950 UART) function 1 (8bit bus)
+```
+
+Notice how all but the first "slot" have a second function with "8bit
+bus" - and linux even tries to use them as 4xUART with the "serial"
+driver...
+
 ## Running
 
 You'll need [`cargo` from rust](https://www.rust-lang.org/) to build the tool.
