@@ -77,6 +77,10 @@ where
 	let mut buf = Vec::new();
 	let mut reader = hardware.read_all()?;
 	buf.push(reader.next().ok_or_else(|| format_err!("Unexpected end of flash data"))?);
+	if buf[0] == 0xffff {
+		warn!("Flash empty");
+		return Ok(Vec::new());
+	}
 	ensure!(buf[0] & 0xfff0 == 0x9500, "Invalid magic: 0x{:04x} (expected 0x9500)", buf[0] & 0xfff0);
 	ensure!(buf[0] & 0x0008 == 0, "Invalid zone flags: 0x{:04x} (should be zero)", buf[0] & 0x0008);
 	let zone1 = buf[0] & 0x0004 != 0;
